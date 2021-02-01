@@ -1,0 +1,6 @@
+/__pycache__
+*.py~
+*.un~
+*.session 
+*.session-journal
+/DOWNLOADS 
