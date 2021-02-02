@@ -136,9 +136,9 @@ scheduler.start()
 
 
 """Send a message when the command /start is used """
-@app.on_message(filters.command("start@DionysianBot", prefixes="/")) 
+@app.on_message(filters.command("start@DionysianBot", prefixes="/") | filters.command("start", prefixes="/")) 
 async def start(client, message):
-        await message.reply_text("Hello! I'm the official managing bot for the Philosophy and Literature group on Telegram(@CorgitoReaders)." , quote = True )
+        await message.reply_text(text = "The Dionysian Ubermensch among @CorgitoReaders. I'd do anything for you if you bring me wine, so, when are we having a drink ? " + emoji.emojize(":clinking_glasses:") , quote = True )
 
 
 """Generate a random aphorism when /quote is used"""
