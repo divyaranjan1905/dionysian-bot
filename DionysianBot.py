@@ -24,6 +24,7 @@ from gtts import gTTS
 from gtts.lang import tts_langs
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
+import emoji 
 
 #Enable Logging
 
@@ -34,6 +35,10 @@ format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
 logger = logging.getLogger(__name__)
 
 app = Client("DionysianBot", api_id=api_id, api_hash=api_hash, bot_token= "1520740480:AAFmzNr57pNnWud7u5x7sFX0MDPi2kPA6Dw")
+
+PhilosophyChat = "CorgitoReaders"
+TestingBots = "TestingPhilosophicalBots"
+User = "[{}](tg://user?id={})"
 
 aphorisms = [
             '__He who fights with monsters might take care lest he thereby becomes a monster. And if you gaze for long into an abyss, the abyss gazes also into you.__ ~Nietzsche' , 
@@ -110,6 +115,7 @@ aphorisms = [
         
         ]
 
+       
 """Testing aphorisms on BOT Testing Group"""
 async def job():
     await app.send_message(chat_id='TestingPhilosophicalBots' , text = random.choice(aphorisms))
@@ -130,13 +136,13 @@ scheduler.start()
 
 
 """Send a message when the command /start is used """
-@app.on_message(filters.command("start", prefixes="/")) 
+@app.on_message(filters.command("start@DionysianBot", prefixes="/")) 
 async def start(client, message):
         await message.reply_text("Hello! I'm the official managing bot for the Philosophy and Literature group on Telegram(@CorgitoReaders)." , quote = True )
 
 
 """Generate a random aphorism when /quote is used"""
-@app.on_message(filters.command("quote", prefixes="/"))
+@app.on_message(filters.command("quote", prefixes="/") | filters.command("quote@DionysianBot", prefixes="/"))
 async def quote(client, message):
         await message.reply_text(text = "Here's something that can rack your brains : " + random.choice(aphorisms) , quote=True) 
 
@@ -148,8 +154,8 @@ async def rules(client, message):
         soup = BeautifulSoup(norms , features= "html.parser")
         better = soup.get_text('\n')
         await message.reply_text(better, quote=True)
-        
-       
+
+
 """Send an audio from gTTS using /speak command"""
 
 @app.on_message(filters.command("speak", prefixes="/")) 
