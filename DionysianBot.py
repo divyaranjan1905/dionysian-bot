@@ -116,6 +116,18 @@ aphorisms = [
         
         ]
         
+#Welcoming members in a philosophical manner 
+Welcome = [
+            "Umhmmm...so somehow you made it until here, do you know how boring this chat is ? I hope you have something interesting. Meanwhile, wanna have a glass of wine ?" + emoji.emojize(":clinking_glasses:"),
+            "Hello!" + User + "I'm a bot, but I can drink wine does that make me less of a bot and more of a human ? Also how have you been lately ?" + emoji.emojize(":clinking_glasses:"),
+            "__Dionysus waived at__" + User + ". What do you think about this place, it's boring isn't it ?",
+            "Hmmm....what do you think about nihilism ? Do you think it's all meaningless ? I mean, maybe, but I'm sure that wine isn't meaningless, how can it be ?" + emoji.emojize(":wine_glass:"),
+            "Do you know that your entry has made me so happy, that I'm gonna continue bullying Divya for the next hour or so ?"
+            "Wittgenstein said __Whereof one cannot speak, thereof one must be silent.__. But I'm sure you can speak, right ? Say me something interesting about yourself." + emoji.emojize(":grapes:"),
+            "Do you know that the fact taht you joined right now to this group was something that was determined to happen ? It couldn't have been otherwise, you were destined to be with us. Now as you are with us, I hope we can have some wine together while discussing philosophy." + emoji.emojize(":clinking_glasses:"),
+            
+           ]
+        
 #Everything the bot responds when someone says the name "Divya"
 DivyaSucks = [
         "Divya sucks, __Divyam__ rocks!",
@@ -128,7 +140,7 @@ DivyaSucks = [
         "What if Divya actually turns out to be a female, using autotuner to change his voice ? Don't know about you, but I'd start liking him a bit, even though he's still a Stoic and is terribly boring.",
        "Would ya just mind geting Divya drunk till next morning ? He has just been out of his mind today and reading Heidegger. Sometimes I feel pitty on him.",
        "Do you know that Divya admires that damn lady named __Fortuna__ ? Like,for real, Venus is so much better.",      
-       "Do you know that Divya is nicknamed by few as __Divi__ or __Div__, that guy can never decent name, can he ?"
+       "Do you know that Divya is nicknamed by few as __Divi__ or __Div__, that guy can never have a decent name, can he ?"
         ]
 
 
@@ -163,6 +175,11 @@ async def quote(client, message):
         await message.reply_text(text = "Here's something that can rack your brains : " + random.choice(aphorisms) , quote=True) 
 
 norms = "<p>You&apos;ll be able to figure out everything else as you go, but just remember some of these : <br>1. Don&apos;t take any opinion as the greatest truth, question everything. <br>2. Don&apos;t be afraid or indulge into emotions while having conversations. <br>3. Be civil during conversations and respect the human you&apos;re talking to. <br>4. Always share content with context. <br>5. We appreciate that you tell us about your day, in fact we encourage you to do so, but try to maintain the topic in a more higher intellectual level.<br>6. Do not feed the trolls. <br>7. If you feel like insulted in some way, you can tell any admin present at the moment or use the #harsh tag. <br>8. Try to limit the use of bad words, you can use them, but try not to abuse. <br><br>We appreciate your stay in this sacred place. Thank you</p>"
+
+"""Welcome someone with a cool message"""
+@app.on_message(filters.chat(TestingBots) & filters.new_chat_members)
+async def welcome(client, message):
+        await message.reply_text(random.choice(Welcome), quote=True)
 
 """Send the rules when /rules command is used or someone joins """
 @app.on_message(filters.command("rules", prefixes="/") | filters.new_chat_members)
