@@ -114,7 +114,22 @@ aphorisms = [
             '__"All truth is simple" - Is that not a compound lie ?__~Nietzsche',
             '__The mason employed on the building of a house may be quite ignorant of its general design; or at any rate, he may not keep it constantly in mind. So it is with man: in working through the days and hours of his life, he takes little thought of its character as a whole.__~Schopenhauer ',
             '__An angry man opens his mouth and shuts his eyes.__~Cato, The Elder'
-        
+            '__A thinker sees his own actions as experiments and questions—as attempts to find out something. Success and failure are for him answers above all. To be annoyed or feel remorse because something goes wrong—that he leaves to those who act because they have received orders and who have to reckon with a beating when his lordship is not satisfied with the result.__~Nietzsche',
+            '__I assess the power of a will by how much resistance, pain, torture it endures and knows how to turn to its advantage.__~Nietzsche',
+            '__One must learn to love.-- This is what happens to us in music: First one has to learn to hear a figure and melody at all, to detect and distinguish it, to isolate it and delimit it as a separate life. Then it requires some exertion and good will to tolerate it in spite of its strangeness, to be patient with its appearance and expression, and kindhearted about its oddity. Finally there comes a moment when we are used to it, when we wait for it, when we sense that we should miss it if it were missing; and now it continues to compel and enchant us relentlessly until we have become its humble and enraptured lovers who desire nothing better from the world than it and only it.__~Nietzsche',
+            '__There are fine things which are more brilliant when unfinished than when finished too much.__~Rochefoucald',
+            '__More persons exist without self-love than without envy__~Rochefoucald',
+            '__What makes us see that men know their faults better than we imagine, is that they are never wrong when they speak of their conduct; the same self-love that usually blinds them enlightens them, and gives them such views as to make them suppress or disguise the smallest thing that might be censured.__~Rochefoucald',
+            '__The first impulse of joy which we feel at the happiness of our friends arises neither from our natural goodness nor from friendship; it is the result of self-love, which flatters us with being lucky in our own turn, or in reaping something from the good fortune of our friends.__~Rochefoucald',
+            '__In the adversity of our best friends we always find something which is not wholly displeasing to us.__~Rochefoucald',
+            '__Self-love takes care to prevent him whom we flatter from being him who most flatters us.__~Rochefoucald',
+            '__Everyone seeks to find his pleasure and his advan- tage at the expense of others. We prefer ourselves always to those with whom we intend to live, and they almost always perceive the preference. It is this which disturbs and destroys society. We should discover a means to hide this love of selection since it is too ingrained in us to be in our power to destroy. We should make our pleasure that of other persons, to humour, never to wound their self-love.__~Rochefoucald',
+            'What makes this falseness so universal, is that as our qualities are uncertain and confused, so too, are our tastes; we do not see things exactly as they are, we value them more or less than they are worth, and do not bring them into unison with ourselves in a manner which suits them or suits our condition or qualities. This mistake gives rise to an infinite number of falsities in the taste and in the mind. Our self-love is flattered by all that presents itself to us under the guise of good.__~Rochefoucald',
+            '__It would seem that even self-love may be the dupe of goodness and forget itself when we work for others. And yet it is but taking the shortest way to arrive at its aim, taking usury under the pretext of giving, in fact winning everybody in a subtle and de- licate manner.__~Rochefoucald',
+            '__ There is no passion wherein self-love reigns so powerfully as in love, and one is always more ready to sacrifice the peace of the loved one than his own.__~Rochefoucald',
+            '__We only appreciate our good or evil in pro- portion to our self-love.__~Rochefoucald',
+            '__The wit of most women rather strengthens their folly than their reason.__~Rochefoucald',
+                        
         ]
         
 
@@ -129,9 +144,11 @@ DivyaSucks = [
         "Do you know why I hate Divya ? Because he's a damn Stoic, like really ? You've got nothing better than just wondering what's upto you and what's not ? He's terrible.",
         "Divya, you suck, you really do. Just accept it, your Stoic daddies have taught you some __Stoic Acceptance__ haven't they ?",
         "What if Divya actually turns out to be a female, using autotuner to change his voice ? Don't know about you, but I'd start liking him a bit, even though he's still a Stoic and is terribly boring.",
-       "Would ya just mind geting Divya drunk till next morning ? He has just been out of his mind today and reading Heidegger. Sometimes I feel pitty on him.",
-       "Do you know that Divya admires that damn lady named __Fortuna__ ? Like,for real, Venus is so much better.",      
-       "Do you know that Divya is nicknamed by few as __Divi__ or __Div__, that guy can never have a decent name, can he ?"
+        "Would ya just mind geting Divya drunk till next morning ? He has just been out of his mind today and reading Heidegger. Sometimes I feel pitty on him.",
+        "Do you know that Divya admires that damn lady named __Fortuna__ ? Like,for real, Venus is so much better.",      
+        "Do you know that Divya is nicknamed by few as __Divi__ or __Div__, that guy can never have a decent name, can he ?"
+        "Do you know what's the best thing about Divya ? It's that you can keep on bullying him without he even flinching a bit. I'm telling ya this is the best guy to have as your punchbag, c'mon let's punch him! "
+        
         ]
 
 
