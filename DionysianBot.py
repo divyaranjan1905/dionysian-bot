@@ -129,7 +129,10 @@ aphorisms = [
             '__ There is no passion wherein self-love reigns so powerfully as in love, and one is always more ready to sacrifice the peace of the loved one than his own.__~Rochefoucald',
             '__We only appreciate our good or evil in pro- portion to our self-love.__~Rochefoucald',
             '__The wit of most women rather strengthens their folly than their reason.__~Rochefoucald',
-                        
+            '__For every minute you remain angry, you give up sixty seconds of peace of mind.__~Emerson',
+            '__Nothing is at last sacred but the integrity of your own mind__~Emerson',
+            '__The glory of friendship is not the outstretched hand, not the kindly smile, nor the joy of companionship; it is the spiritual inspiration that comes to one when you discover that someone else believes in you and is willing to trust you with a friendship.__~Emerson',
+            '__If we encounter a man of rare intellect, we should ask him what books he reads.__~Emerson'
         ]
         
 
