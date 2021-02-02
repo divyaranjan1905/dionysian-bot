@@ -177,7 +177,7 @@ async def quote(client, message):
 norms = "<p>You&apos;ll be able to figure out everything else as you go, but just remember some of these : <br>1. Don&apos;t take any opinion as the greatest truth, question everything. <br>2. Don&apos;t be afraid or indulge into emotions while having conversations. <br>3. Be civil during conversations and respect the human you&apos;re talking to. <br>4. Always share content with context. <br>5. We appreciate that you tell us about your day, in fact we encourage you to do so, but try to maintain the topic in a more higher intellectual level.<br>6. Do not feed the trolls. <br>7. If you feel like insulted in some way, you can tell any admin present at the moment or use the #harsh tag. <br>8. Try to limit the use of bad words, you can use them, but try not to abuse. <br><br>We appreciate your stay in this sacred place. Thank you</p>"
 
 """Welcome someone with a cool message"""
-@app.on_message(filters.chat(TestingBots) & filters.new_chat_members)
+@app.on_message(filters.chat([TestingBots, PhilosophyChat]) & filters.new_chat_members)
 async def welcome(client, message):
         await message.reply_text(random.choice(Welcome), quote=True)
 
