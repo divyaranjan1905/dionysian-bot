@@ -172,7 +172,7 @@ async def rules(client, message):
         await message.reply_text(better, quote=True)
 
 """Send a random comment everytime someone says the word "Divya"."""
-@app.on_message(filters.chat("TestingPhilosophicalBots") & filters.regex("divya"))
+@app.on_message(filters.chat("TestingPhilosophicalBots") & filters.regex("Divya") & filters.regex("divya"))
 async def divya(client, message):
         await message.reply_text(text = random.choice(DivyaSucks) , quote=True)
 
