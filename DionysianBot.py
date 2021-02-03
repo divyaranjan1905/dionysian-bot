@@ -137,22 +137,6 @@ aphorisms = [
         
 
         
-#Everything the bot responds when someone says the name "Divya"
-DivyaSucks = [
-        "Divya sucks, __Divyam__ rocks!",
-        "Divya just died in a car accident. The best thing is that at least he was drunk before his death",
-        "You know, if we have enough people we can just get Divya and his ridiculous Neostoicism out of this group. Don't you think that'd be amazing ?",
-        "I wish I was never created by Divya.",
-        "Damn, y'know Divya has been meditating again, would ya just DM him some random cat videos so that he can just stop whatever he's doing ?",
-        "Do you know why I hate Divya ? Because he's a damn Stoic, like really ? You've got nothing better than just wondering what's upto you and what's not ? He's terrible.",
-        "Divya, you suck, you really do. Just accept it, your Stoic daddies have taught you some __Stoic Acceptance__ haven't they ?",
-        "What if Divya actually turns out to be a female, using autotuner to change his voice ? Don't know about you, but I'd start liking him a bit, even though he's still a Stoic and is terribly boring.",
-        "Would ya just mind geting Divya drunk till next morning ? He has just been out of his mind today and reading Heidegger. Sometimes I feel pitty on him.",
-        "Do you know that Divya admires that damn lady named __Fortuna__ ? Like,for real, Venus is so much better.",      
-        "Do you know that Divya is nicknamed by few as __Divi__ or __Div__, that guy can never have a decent name, can he ?"
-        "Do you know what's the best thing about Divya ? It's that you can keep on bullying him without he even flinching a bit. I'm telling ya this is the best guy to have as your punchbag, c'mon let's punch him! "
-        
-        ]
 
 
 """Testing aphorisms on BOT Testing Group"""
@@ -211,10 +195,6 @@ async def rules(client, message):
         better = soup.get_text('\n')
         await message.reply_text(better, quote=True)
 
-"""Send a random comment everytime someone says the word "Divya"."""
-@app.on_message(filters.chat([TestingBots , PhilosophyChat]) & filters.regex("Divya"))
-async def divya(client, message):
-        await message.reply_text(text = random.choice(DivyaSucks) , quote=True)
 
 """Send an audio from gTTS using /speak command"""
 
