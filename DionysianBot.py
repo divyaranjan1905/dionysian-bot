@@ -25,7 +25,6 @@ from gtts.lang import tts_langs
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 import emoji 
-from libgen_api import LibgenSearch
 from scihub import SciHub
 from aphorisms import aphorisms
 import wikipedia 
