@@ -15,9 +15,9 @@ import random
 import logging
 import schedule  
 from bs4 import BeautifulSoup 
-from pyrogram import Client, filters
+from pyrogram import Client, filters , emoji  
 from pyromod import listen
-from config import api_id, api_hash
+from config import api_id, api_hash , pw
 from pyrogram.types import User, Chat, ChatMember, Message, Photo, MessageEntity, Audio, Document, Animation, Video, Voice, Thumbnail, Contact, Game, Location, Poll, ForceReply
 from pyrogram.handlers import MessageHandler
 from gtts import gTTS
@@ -25,12 +25,16 @@ from gtts.lang import tts_langs
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 import emoji 
+from libgen_api import LibgenSearch
+from scihub import SciHub
+from aphorisms import aphorisms
+import wikipedia 
 
 #Enable Logging
 
 logging.basicConfig(
 format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                     level=logging.INFO
+                     level=logging.DEBUG
                      )
 logger = logging.getLogger(__name__)
 
@@ -41,110 +45,13 @@ TestingBots = "TestingPhilosophicalBots"
 User = "[{}](tg://user?id={})"
 
 
-#The collection of aphorisms from which the bot sends /quote and other scheduled aphorisms
-aphorisms = [
-            '__He who fights with monsters might take care lest he thereby becomes a monster. And if you gaze for long into an abyss, the abyss gazes also into you.__ ~Nietzsche' , 
-            '__What does not kill me, makes me stronger__ ~Nietzsche' , 
-            '__What is done out of love always takes place beyond good and evil.__ ~Nietzsche' , 
-            '__Man does not strive for happiness; only the Englishman does that.__ ~Nietzsche' , 
-            '__There are no facts, only interpretations.__ ~Nietzsche' , 
-            '__There are two great European narcotics, alcohol and Christianity.__ ~Nietzsche' , 
-            '__Become who you are!.__ ~Nietzsche' , 
-            '__The true man wants two things: danger and play.__ ~Nietzsche' , 
-            '__My formula for greatness in a human being is amor fati: that one wants nothing to be different, not forward, not backward, not in all eternity.__ ~Nietzsche' , 
-            '__The lonely one offers his hand too quickly to whomever he encounters.__ ~Nietzsche', 
-            '__There is more wisdom in your body than in your deepest philosophy.__ ~Nietzsche ' , 
-            '__A living thing seeks above all to discharge its strength — life itself is will to power.__ ~Nietzsche' , 
-            '__My formula for happiness: a Yes, a No, a straight line, a goal.__ ~Nietzsche',
-            '__"It is not death  that a man should fear but he should fear  never beginning to live."__ — Marcus Aurelius.',
-            '__“Keep this thought handy when you feel a bit of rage coming on—it isn’t manly to be enraged. Rather, gentleness and civility are more human, and therefore manlier. A real man doesn’t give way to anger and discontent, and such a person has strength, courage, and endurance—unlike the angry and complaining. The nearer a man comes to a calm mind, the closer he is to strength.”__ -Marcus Aurelius',
-            '__“Death smiles at us all; all we can do is smile back at it.”__ ― Marcus Aurelius',
-            '__Think of yourself as dead. You have lived your life. Now take what’s left and live it properly.__ ~ Marcus Aurelius',
-            '__Wherever there is a human, there is an opportunity for kindness.__ ~Seneca',
-            '__Self love is more cunning than the most cunning man in the world.__ ~Rochefoucald',
-            '__Passion often renders the most clever man a fool, and even sometimes renders the most foolish man clever.__ ~Rochefoucald',
-            '__Self-love is the greatest of flatterers.__ ~Rochefoucald',
-            '__The moderation of those who are happy arises from the calm which good fortune bestows upon their temper.__ ~Rochefoucald',
-            '__We have all sufficient strength to support the misfortunes of others.__ ~Rochefoucald',
-            '__Philosophy triumphs easily over past evils and future evils; but present evils triumph over it.__ ~Rochefoucald'
-            '__If we had no faults we should not take so much pleasure in noting those of others.__ ~Rochefoucald',
-            '__To establish ourselves in the world we do everything to appear as if we were established.__ ~Rochefoucald',
-            '__The happiness or unhappiness of men depends no less upon their dispositions than their fortunes.__ ~Rochefoucald',
-            '__If there is a pure love, exempt from the mixture of our other passions, it is that which is concealed at the bottom of the heart and of which even our- selves are ignorant.__ ~Rochefoucald',
-            '__It is more disgraceful to distrust than to be deceived by our friends.__ ~Rochefoucald',
-            '__Those who know their minds do not necessarily know their hearts.__ ~Rochefoucald',
-            '__One kind of flirtation is to boast we never flirt.__ ~Rochefoucald',
-            '__A man would rather say evil of himself than say nothing.__ ~Rochefoucald',
-            '__We often boast that we are never bored, but yet we are so conceited that we do not perceive how often we bore others.__ ~Rochefouclad',
-            '__The refusal of praise is only the wish to be praised twice.__ ~Rochefoucald',
-            '__There are some persons who only disgust with their abilities, there are persons who please even with their faults__ ~Rochefoucald',
-            '__People who comprehend a thing to its very depths rarely stay faithful to it forever. For they have brought its depths into the light of day: and in the depths there is always much that is unpleasant to see.__ ~Nietzsche',
-            '__The cure for love is still in most cases that ancient radical medicine: love in return.__ ~Nietzsche',
-            '__Fortune cures us of many faults that reason could not.__ ~Rochefoucald',
-            '__However rare true love is, true friendship is rarer.__~Rochefoucald',
-            '__Timidity is a fault which is dangerous to blame in those we desire to cure of it__~Rochefoucald',
-            '__We often go from love to ambition, but we never return from ambition to love.__~Rochefoucald',
-            '__Sobriety is the love of health, or an in- capacity to eat much. ~Rochefoucald',
-            '__We never forget things so well as when we are tired of talking of them__ ~Rochefoucald',
-            '__We are very fond of reading others characters, but we do not like to be read ourselves__~Rochefoucald',
-            '__The greatest skill of the least skilful is to know how to submit to the direction of another__~Rochefoucald',
-            '__Why we cry out so much against maxims which lay bare the heart of man, is because we fear that our own heart shall be laid bare.__ ~Rochefoucald',
-            '__The labour of the body frees us from the pains of the mind, and thus makes the poor happy__~Rochefoucald',
-            '__Few things are needed to make a wise man happy; nothing can make a fool content; that is why most men are miserable.__~Rochefoucald',
-            '__We trouble ourselves less to become happy, than to make others believe we are so__~Rochefoucald',
-            '__Wisdom is to the soul what health is to the body.__ ~Rochefoucald',
-            '__Before strongly desiring anything we should examine what happiness he has who possesses it.__ ~Rochefoucald',
-            '__We commonly praise the good hearts of those who admire us. __~Rochefoucald',
-            '__A man to whom no one is pleasing is much more unhappy than one who pleases nobody.__~Rochefoucald',
-            '__A well regulated mind sees all things as they should be seen, appraises them at their proper value, turns them to its own advantage, and adheres firmly to its own opinions as it knows all their force and weight.__~Rochefoucald',
-            '__There is a kind of love, the excess of which forbids jealous__~Rochefoucald',
-            '__Infidelities should extinguish love, and we ought not to be jealous when we have cause to be so. No person can escape causing jealousy who are worthy of exciting it.__~Rochefoucald',
-            "__Flirtation is at the bottom of woman's nature, although all do not practise it, some being restrained by fear, others by sense__~Rochefoucald",
-            '__There are different kinds of curiosity: one springs from interest, which makes us desire to know everything that may be profitable to us; another from pride, which springs from a desire of knowing what others are ignorant of.__~Rochefoucald',
-            '__As rivers are lost in the sea so are virtues in self__~Rochefoucald',
-            '__Idleness and fear keeps us in the path of duty, but our virtue often gets the praise.__~Rochefoucald',
-            '__However deceitful hope may be, yet she carries us on pleasantly to the end of life__~Rochefoucald',
-            '__Pride will not owe, self-love will not pay.__~Rochefoucald',
-            '__True love is like ghosts, which everybody talks about and few have seen.__~Rochefoucald',
-            '__Envy is destroyed by true friendship, flirtation by true love__~Rochefoucald',
-            '__We always fear to see those whom we love when we have been flirting with others.__~Rochefoucald',
-            '__That which makes us believe so easily that others have defects is that we all so easily believe what we wish.__~Rochefoucald',
-            '__There are those who avoid our jealousy, of whom we ought to be jealous. __~Rochefoucald',
-            '__There is nothing more natural, nor more deceptive, than to believe that we are beloved.__~Rochefoucald',
-            '__"All truth is simple" - Is that not a compound lie ?__~Nietzsche',
-            '__The mason employed on the building of a house may be quite ignorant of its general design; or at any rate, he may not keep it constantly in mind. So it is with man: in working through the days and hours of his life, he takes little thought of its character as a whole.__~Schopenhauer ',
-            '__An angry man opens his mouth and shuts his eyes.__~Cato, The Elder'
-            '__A thinker sees his own actions as experiments and questions—as attempts to find out something. Success and failure are for him answers above all. To be annoyed or feel remorse because something goes wrong—that he leaves to those who act because they have received orders and who have to reckon with a beating when his lordship is not satisfied with the result.__~Nietzsche',
-            '__I assess the power of a will by how much resistance, pain, torture it endures and knows how to turn to its advantage.__~Nietzsche',
-            '__One must learn to love.-- This is what happens to us in music: First one has to learn to hear a figure and melody at all, to detect and distinguish it, to isolate it and delimit it as a separate life. Then it requires some exertion and good will to tolerate it in spite of its strangeness, to be patient with its appearance and expression, and kindhearted about its oddity. Finally there comes a moment when we are used to it, when we wait for it, when we sense that we should miss it if it were missing; and now it continues to compel and enchant us relentlessly until we have become its humble and enraptured lovers who desire nothing better from the world than it and only it.__~Nietzsche',
-            '__There are fine things which are more brilliant when unfinished than when finished too much.__~Rochefoucald',
-            '__More persons exist without self-love than without envy__~Rochefoucald',
-            '__What makes us see that men know their faults better than we imagine, is that they are never wrong when they speak of their conduct; the same self-love that usually blinds them enlightens them, and gives them such views as to make them suppress or disguise the smallest thing that might be censured.__~Rochefoucald',
-            '__The first impulse of joy which we feel at the happiness of our friends arises neither from our natural goodness nor from friendship; it is the result of self-love, which flatters us with being lucky in our own turn, or in reaping something from the good fortune of our friends.__~Rochefoucald',
-            '__In the adversity of our best friends we always find something which is not wholly displeasing to us.__~Rochefoucald',
-            '__Self-love takes care to prevent him whom we flatter from being him who most flatters us.__~Rochefoucald',
-            '__Everyone seeks to find his pleasure and his advan- tage at the expense of others. We prefer ourselves always to those with whom we intend to live, and they almost always perceive the preference. It is this which disturbs and destroys society. We should discover a means to hide this love of selection since it is too ingrained in us to be in our power to destroy. We should make our pleasure that of other persons, to humour, never to wound their self-love.__~Rochefoucald',
-            'What makes this falseness so universal, is that as our qualities are uncertain and confused, so too, are our tastes; we do not see things exactly as they are, we value them more or less than they are worth, and do not bring them into unison with ourselves in a manner which suits them or suits our condition or qualities. This mistake gives rise to an infinite number of falsities in the taste and in the mind. Our self-love is flattered by all that presents itself to us under the guise of good.__~Rochefoucald',
-            '__It would seem that even self-love may be the dupe of goodness and forget itself when we work for others. And yet it is but taking the shortest way to arrive at its aim, taking usury under the pretext of giving, in fact winning everybody in a subtle and de- licate manner.__~Rochefoucald',
-            '__ There is no passion wherein self-love reigns so powerfully as in love, and one is always more ready to sacrifice the peace of the loved one than his own.__~Rochefoucald',
-            '__We only appreciate our good or evil in pro- portion to our self-love.__~Rochefoucald',
-            '__The wit of most women rather strengthens their folly than their reason.__~Rochefoucald',
-            '__For every minute you remain angry, you give up sixty seconds of peace of mind.__~Emerson',
-            '__Nothing is at last sacred but the integrity of your own mind__~Emerson',
-            '__The glory of friendship is not the outstretched hand, not the kindly smile, nor the joy of companionship; it is the spiritual inspiration that comes to one when you discover that someone else believes in you and is willing to trust you with a friendship.__~Emerson',
-            '__If we encounter a man of rare intellect, we should ask him what books he reads.__~Emerson'
-        ]
-        
-
-        
-
-
+            
 """Testing aphorisms on BOT Testing Group"""
 async def job():
     await app.send_message(chat_id='TestingPhilosophicalBots' , text = random.choice(aphorisms))
 
 scheduler = AsyncIOScheduler()
-scheduler.add_job(job, "interval", seconds=1800)
+scheduler.add_job(job, "interval", seconds=43200)
 
 scheduler.start()
 
@@ -178,8 +85,9 @@ Welcome = [
             "Do you know that your entry has made me so happy, that I'm gonna continue bullying Divya for the next hour or so ?"
             "Wittgenstein said __Whereof one cannot speak, thereof one must be silent.__. But I'm sure you can speak, right ? Say me something interesting about yourself." + emoji.emojize(":grapes:"),
             "Do you know that the fact that you joined right now to this group was something that was determined to happen ? It couldn't have been otherwise, you were destined to be with us. Now as you are with us, I hope we can have some wine together while discussing philosophy." + emoji.emojize(":clinking_glasses:"),
-            ]
-           
+            "Do you like talking about philosophy and essentially exploring the underlying substructure behind everything ? You're at the right place, a lot of bored folkd here have nothing better to do other than, hopefully you can be one of them." +emoji.emojize(":clinking_glasses:") , 
+            "What was the last dream you had ? Have you tried analyzing it ? If not, we've got a few psychoanalysis enthusiasts here, they might help you out and you might get to have some insight about them and yourself"
+            ]          
 
 """Welcome someone with a cool message"""
 @app.on_message(filters.chat([TestingBots, PhilosophyChat]) & filters.new_chat_members)
@@ -195,7 +103,6 @@ async def rules(client, message):
         better = soup.get_text('\n')
         await message.reply_text(better, quote=True)
 
-
 """Send an audio from gTTS using /speak command"""
 
 @app.on_message(filters.command("speak", prefixes="/")) 
@@ -206,30 +113,50 @@ async def text(client, message):
 
            language = await client.ask(
            message.chat.id,
-           "**Plz enter an language code\n suppourt languages**[click here](https://www.google.com/url?sa=t&source=web&rct=j&url=https://cloud.google.com/text-to-speech/docs/voices&ved=2ahUKEwir4pPLlr7uAhWLwjgGHQAVAQAQFjACegQIDBAC&usg=AOvVaw3Q_9UBb0Xo-ljg87RGPX-8&cshid=1611821833928)",
+           "Plz enter an language code\n suppourt languages[click here](https://www.google.com/url?sa=t&source=web&rct=j&url=https://cloud.google.com/text-to-speech/docs/voices&ved=2ahUKEwir4pPLlr7uAhWLwjgGHQAVAQAQFjACegQIDBAC&usg=AOvVaw3Q_9UBb0Xo-ljg87RGPX-8&cshid=1611821833928)",
            reply_markup=ForceReply(True),
         )  
 
            language_to_audio = language.text.lower()
            if language.text.lower() not in tts_langs():
             await message.reply_text(
-             "```Unsupported Language Code```",
+             "Unsupported Language Code",
              quote=True,
              parse_mode="md"
         )
            else:
                  a = await message.reply_text(
-                 "```processing```",
+                 "processing",
                    quote=True,
                    parse_mode="md"
            )
            new_file  = "./DOWNLOADS" + "/" + userid + message.text + ".mp3"
+           
            myobj = gTTS(text=message.text, lang=language_to_audio, slow=False)   
            myobj.save(new_file)
            await message.reply_audio(new_file)
-           quotes = ['He who fights with monsters might take care lest he thereby becomes a monster. And if you gaze for long into an abyss, the abyss gazes also into you.' , 'What does not kills me, makes me stronger' , 'What is done out of love always takes place beyond good and evil.' , 'Man does not strive for happiness; only the Englishman does that. ' , 'There are no facts, only interpretations.' , 'There are two great European narcotics, alcohol and Christianity' , 'Become who you are!' , 'The true man wants two things: danger and play.' , 'My formula for greatness in a human being is amor fati: that one wants nothing to be different, not forward, not backward, not in all eternity.' , '**The lonely one offers his hand too quickly to whomever he encounters.**', 'There is more wisdom in your body than in your deepest philosophy' , 'A living thing seeks above all to discharge its strength — life itself is will to power' , 'My formula for happiness: a Yes, a No, a straight line, a goal']
-           await a.edit(random.choice(quotes))
+           await a.edit(random.choice(aphorisms))
+           
+"""Gets a paper from SciHub using the given DOI"""
+@app.on_message(filters.command("sci",prefixes="/"))
+def sci(client, message):
+    filters.command("sci", "/")
+    DOI = message.command[-1]
+    sh = SciHub()
+    result = sh.fetch(DOI)
+    if result:
+        with open('output.pdf', 'wb+') as fd:
+            fd.write(result.pdf)
 
 
+"""Gets a summary from Wiki"""
+@app.on_message(filters.command("w",prefixes="/"))
+def wiki (client,message):
+    filters.command("w","/")
+    word = message.command[-1]
+    message.replyText(wikipedia.summary(word),quote=True)
+    
 
 app.run()
+
+
