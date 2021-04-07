@@ -131,4 +131,3 @@ aphorisms = [
             "__The tyrant dies and his rule is over; the martyr dies and his rule begins__   ~Kierkegaard",
             "__Someone in despair despairs over something. So, for a moment, it seems, but only for a moment. That same instant the true despair shows itself, or despair in its true guise. In despairing over something he was really despairing over himself, and he wants now to be rid of himself.__    ~Kierkegaard",
             "__Out of love, God becomes man. He says: 'See, here is what it is to be a human being.'__   ~Kierkegaard",
-            "__That which distinguishes the Christian narrow way from the common human narrow way is the voluntary. Christ was not someone who coveted earthly things but had to be satisfied with poverty, he chose poverty.__   ~Kierkegaard"
