@@ -14,6 +14,7 @@ import pyrogram
 import random
 import logging
 import schedule
+import requests
 from bs4 import BeautifulSoup
 from pyrogram import Client, filters , emoji
 from pyromod import listen
@@ -34,11 +35,12 @@ import urllib3
 
 logging.basicConfig(level=logging.INFO)
 
-app = Client("DionysianBot", api_id=api_id, api_hash=api_hash, bot_token= "1520740480:AAFmzNr57pNnWud7u5x7sFX0MDPi2kPA6Dw")
+bot_token = "1520740480:AAFmzNr57pNnWud7u5x7sFX0MDPi2kPA6Dw"
+
+app = Client("DionysianBot", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
 
 PhilosophyChat = "CorgitoReaders"
 TestingBots = "TestingPhilosophicalBots"
-User = "[{}](tg://user?id={})"
 
 """Supressing INSECURE RREQUEST from urllib Python"""
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -66,7 +68,7 @@ scheduler.start()
 """Send a message when the command /start is used """
 @app.on_message(filters.command("start@DionysianBot", prefixes="/") | filters.command("start", prefixes="/"))
 async def start(client, message):
-        await message.reply_text(text = "The Dionysian Ubermensch among @CorgitoReaders. I'd do anything for you if you bring me wine, so, when are we having a drink ? " + emoji.emojize(":clinking_glasses:") , quote = True )
+        await message.reply_text(text = "The Dionysian Ubermensch among @CorgitoReaders. I'd do anything for you if you bring me wine, so, when are we having a drink? " + emoji.emojize(":clinking_glasses:") , quote = True )
 
 
 """Generate a random aphorism when /quote is used"""
@@ -77,19 +79,19 @@ async def quote(client, message):
 
 #Welcoming members in a philosophical manner
 Welcome = [
-            "Umhmmm...so somehow you made it until here, do you know how boring this chat is ? I hope you have something interesting. Meanwhile, wanna have a glass of wine ?" + emoji.emojize(":clinking_glasses:"),
-            "Hello! fellow human, I'm a bot but I can drink wine does that make me less of a bot and more of a human ? Also how have you been lately ?" + emoji.emojize(":clinking_glasses:"),
-            "Hmmm....what do you think about nihilism ? Do you think it's all meaningless ? I mean, maybe, but I'm sure that wine isn't meaningless, how can it be ?" + emoji.emojize(":wine_glass:"),
-            "Wittgenstein said __Whereof one cannot speak, thereof one must be silent.__. But I'm sure you can speak, right ? Say me something interesting about yourself." + emoji.emojize(":grapes:"),
-            "Do you know that the fact that you joined right now to this group was something that was determined to happen ? It couldn't have been otherwise, you were destined to be with us. Now as you are with us, I hope we can have some wine together while discussing philosophy." + emoji.emojize(":clinking_glasses:"),
-            "Do you like talking about philosophy and essentially exploring the underlying substructure behind everything ? You're at the right place, a lot of boring folks here have nothing better to do other than that, hopefully you can be one of them." +emoji.emojize(":clinking_glasses:") ,
-            "What was the last dream you had ? Have you tried analyzing it ? If not, we've got a few psychoanalysis enthusiasts here, they might help you out and you might get to have some insight about them and yourself"
-            "Remember the mad Apollo ? One of the famous maxims inscribed at his Temple in Delphi is __Know Thyself__. Do you think this has anything reasonable to it ? How do you think one can start with 'knowing themselves' ? And can we only do that with the Apollonian tools of reason ? Doesn't being drunk on wine also help you 'know thyself', about something that reason could never reach ? Anyways..who cares" + emoji.emojize(":clinking_glasses:") , 
-            "Welcome to this sacred (aka boring) place! Here's a question for you from Nietzsche, my only true disciple : '__Are you genuine ? or just a play-actor ? A representative ? or the actual thing represented ?--Ultimately you are even just an imitation play-actor...__' Let's think through this together" + emoji.emojize(":clinking_glasses:"),
-
+            "Umhmmm...so somehow you made it until here, do you know how boring this chat is? I hope you have something interesting. Meanwhile, wanna have a glass of wine?" + emoji.emojize(":clinking_glasses:"),
+            "Hello! fellow human, I'm a bot but I can drink wine does that make me less of a bot and more of a human? Also how have you been lately?" + emoji.emojize(":clinking_glasses:"),
+            "Hmmm....what do you think about nihilism? Do you think it's all meaningless? I mean, maybe, but I'm sure that wine isn't meaningless, how can it be?" + emoji.emojize(":wine_glass:"),
+            "Wittgenstein said __Whereof one cannot speak, thereof one must be silent.__. But I'm sure you can speak, right? Say me something interesting about yourself." + emoji.emojize(":grapes:"),
+            "Do you know that the fact that you joined right now to this group was something that was determined to happen? It couldn't have been otherwise, you were destined to be with us. Now as you are with us, I hope we can have some wine together while discussing philosophy." + emoji.emojize(":clinking_glasses:"),
+            "Do you like talking about philosophy and essentially exploring the underlying substructure behind everything? You're at the right place, a lot of boring folks here have nothing better to do other than that, hopefully you can be one of them." +emoji.emojize(":clinking_glasses:") ,
+            "What was the last dream you had? Have you tried analyzing it? If not, we've got a few psychoanalysis enthusiasts here, they might help you out and you might get to have some insight about them and yourself"
+            "Remember the mad Apollo? One of the famous maxims inscribed at his Temple in Delphi is __Know Thyself__. Do you think this has anything reasonable to it? How do you think one can start with 'knowing themselves'? And can we only do that with the Apollonian tools of reason? Doesn't being drunk on wine also help you 'know thyself', about something that reason could never reach? Anyways..who cares" + emoji.emojize(":clinking_glasses:") ,
+            "Welcome to this sacred (aka boring) place! Here's a question for you from Nietzsche, my only true disciple : '__Are you genuine? or just a play-actor? A representative? or the actual thing represented? --Ultimately you are even just an imitation play-actor...__' Let's think through this together" + emoji.emojize(":clinking_glasses:"),
+            "What do you think about the concept of dualism? Do yo believe that the mind and the consciousness exist in a world entirely different that from the material world? Does the material world exist without consciousness? Or would consciousness exist without the brain? Why not talk start discussing about it here?" 
             ]
 
-"""Welcome someone with a cool message"""
+"""Welcome someone with a cool philosohical message"""
 @app.on_message(filters.chat([TestingBots, PhilosophyChat]) & filters.new_chat_members)
 async def welcome(client, message):
         await message.reply_text(random.choice(Welcome), quote=True)
@@ -130,7 +132,7 @@ async def text(client, message):
                    quote=True,
                    parse_mode="md"
            )
-           new_file  = "./DOWNLOADS" + "/" + userid + message.text + ".mp3"
+           new_file  = "./DOWNLOADS" + "/" + userid + "Audio"  + ".mp3"
 
            myobj = gTTS(text=message.text, lang=language_to_audio, slow=False)
            myobj.save(new_file)
@@ -155,6 +157,30 @@ async def wiki (client,message):
       filters.command("w","/")
       word = message.command[-1]
       await message.reply_text( text = wikipedia.summary(word) ,quote=True)
+
+"""Gets a random episode from Existential Comics"""
+@app.on_message(filters.command("ec", prefixes="/"))
+async def comics(client, message):
+    episode = str(random.randint(1,2703))
+    if not os.path.isdir(f"./Existential Comics/{episode}"):
+        os.makedirs(f"./Existential Comics/{episode}")
+
+    url = 'https://www.existentialcomics.com/comic' + episode
+    response = requests.get(url)
+
+    soup = BeautifulSoup(response.content, 'html.parser')
+    img_tags = soup.find_all('img')
+    img_urls = [img['src'] for img in img_tags]
+
+    for img in img_urls:
+        if 'http' not in img:
+            img = '{}{}'.format(url, img)
+        filename = os.path.join(f"./Existential Comics/{episode}", img.split("/")[-1])
+        with open(filename, "wb") as f:
+           response = requests.get(img)
+           f.write(response.content)
+    await app.send_media_group(TestingBots, [InputMediaPhoto(filename)], quote = True)
+
 
 
 app.run()

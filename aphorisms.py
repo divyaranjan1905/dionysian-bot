@@ -70,7 +70,7 @@ aphorisms = [
             '__There is nothing more natural, nor more deceptive, than to believe that we are beloved.__~Rochefoucald',
             '__"All truth is simple" - Is that not a compound lie ?__~Nietzsche',
             '__The mason employed on the building of a house may be quite ignorant of its general design; or at any rate, he may not keep it constantly in mind. So it is with man: in working through the days and hours of his life, he takes little thought of its character as a whole.__~Schopenhauer ',
-            '__An angry man opens his mouth and shuts his eyes.__~Cato, The Elder'
+            '__An angry man opens his mouth and shuts his eyes.__~Cato, The Elder',
             '__A thinker sees his own actions as experiments and questions as attempts to find out something. Success and failure are for him answers above all. To be annoyed or feel remorse because something goes wrong that he leaves to those who act because they have received orders and who have to reckon with a beating when his lordship is not satisfied with the result.__~Nietzsche',
             '__I assess the power of a will by how much resistance, pain, torture it endures and knows how to turn to its advantage.__~Nietzsche',
             '__One must learn to love.-- This is what happens to us in music: First one has to learn to hear a figure and melody at all, to detect and distinguish it, to isolate it and delimit it as a separate life. Then it requires some exertion and good will to tolerate it in spite of its strangeness, to be patient with its appearance and expression, and kindhearted about its oddity. Finally there comes a moment when we are used to it, when we wait for it, when we sense that we should miss it if it were missing; and now it continues to compel and enchant us relentlessly until we have become its humble and enraptured lovers who desire nothing better from the world than it and only it.__~Nietzsche',
@@ -96,7 +96,7 @@ aphorisms = [
             '__To live alone one must be a beast or a god, says Aristotle. Leaving out the third case: one must be both, a philosopher.__~Nietzsche',
             "__One of love's greatest drawbacks is that, for a while at least, it is in danger of making us seriously happy.__~deBotton",
             '__Our greatest pleasure consists in being admired; but the admirers, even if there is every cause, are not very keen to express their admiration. And so the happiest man is he who has managed sincerely to admire himself, no matter how.__~Schopenhauer',
-            '__We must learn to suffer whatever we cannot avoid. Our life is composed, like the harmony of the world, of discords as well as of different tones, sweet and harsh, sharp and flat, soft and loud. If a musician liked only some of them, what could he sing? He has got to know how to use all of them and blend them together. So too must we with good and ill, which are of one substance with our life.__~Montaigne'
+            '__We must learn to suffer whatever we cannot avoid. Our life is composed, like the harmony of the world, of discords as well as of different tones, sweet and harsh, sharp and flat, soft and loud. If a musician liked only some of them, what could he sing? He has got to know how to use all of them and blend them together. So too must we with good and ill, which are of one substance with our life.__~Montaigne',
             '__Despite our proud claim to dominate nature, we are still its victims because we have not yet learned to dominate ourselves.__ ~Carl Jung',
             '__Anyone who imagines that all fruits ripen at the same time as the strawberries knows nothing about grapes.__ ~Paracelsus ',
             '__Hope in reality is the worst of all evils because it prolongs the torments of man__~Nietzsche',
@@ -130,5 +130,22 @@ aphorisms = [
             "__It is perfectly true, as the philosophers say, that life must be understood backwards. But they forget the other proposition, that it must be lived forwards.__   ~Kierkegaard",
             "__The tyrant dies and his rule is over; the martyr dies and his rule begins__   ~Kierkegaard",
             "__Someone in despair despairs over something. So, for a moment, it seems, but only for a moment. That same instant the true despair shows itself, or despair in its true guise. In despairing over something he was really despairing over himself, and he wants now to be rid of himself.__    ~Kierkegaard",
-            "__Out of love, God becomes man. He says: 'See, here is what it is to be a human being.'__   ~Kierkegaard" 
+            "__Out of love, God becomes man. He says: 'See, here is what it is to be a human being.'__   ~Kierkegaard" ,
+            "__A man should not strive to eliminate his complexes but to get in accord with them: they are legitimately what directs his conduct in the world.__   ~Freud",
+            "__Love and work....work and love, that's all there is.__   ~Freud",
+            "__Men are more moral than they think and ffar mote immoral than they can imagine.__    ~Freud",
+            "__Just as no one can be forced into belief, so no one can be foprced into unbelief.__   ~Freud",
+            "__Most people don't really want freedom, because freedom involves responsibility, and most people are frightened of responsibility.__   ~Freud",
+            "__Neurosis is the inability to tolerate ambiguity.__    ~Freud",
+            "__Neurotics complain of their illness, but they make the most of it, and when it comes to talking it away from them they will defend it likes a lioness her young.__    ~Freud",
+            "__Religion is an illusion and it derives it's strength from the fact that it falls in with our instinctual desires__    ~Freud",
+            "__The ego is not master in its own house__.     ~Freud",
+            "__Time spent with cats is never wasted.__     ~Freud",
+            "__We are never so defenseless against suffering as when we love__.    ~Freud",
+            "__Whoever loves becomes humble. Those who love have, so to speak, pawned a part of their narcissism__.    ~Freud",
+            "__He that has eyes to see and ears to heaer may convince himself that no mortal can keep a secret. If his lips are silent, he chatters with his fingertips; betrayal oozes out of him at every pore.__    ~Freud",
+            "__It would be very nice if there was a God who created the world and was a benevolent providence and if there were a moral order in the universe and an after-life; but it is a very striking fact that all this is exactly as we are bound to wish it to be.__    ~Freud",
+            "__One if very crazy when in love__   ~Freud",
+            "__The great question that has never been answered, and which I have not yet been abe to answer despite my thirty years of research into the feminine soul, is 'What does a woman want?'__    ~Freud"
+
 ]
