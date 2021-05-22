@@ -116,8 +116,7 @@ async def text(client, message):
            if not os.path.isdir(f"./DOWNLOADS/{userid}"):
               os.makedirs(f"./DOWNLOADS/{userid}")
             
-            trans = message.text
-            l = len(trans)
+           l = len(message.text)
            language = await client.ask(
            message.chat.id,
            "Plz enter an language code\n suppourt languages[click here](https://www.google.com/url?sa=t&source=web&rct=j&url=https://cloud.google.com/text-to-speech/docs/voices&ved=2ahUKEwir4pPLlr7uAhWLwjgGHQAVAQAQFjACegQIDBAC&usg=AOvVaw3Q_9UBb0Xo-ljg87RGPX-8&cshid=1611821833928)",
@@ -138,7 +137,7 @@ async def text(client, message):
                    parse_mode="md"
            )
            new_file  = "./DOWNLOADS" + "/" + userid + "Audio"  + ".mp3"
-           myobj = gTTS(text=trans[6:l], lang=language_to_audio, slow=False)
+           myobj = gTTS(text=message.text[6:l], lang=language_to_audio, slow=False)
            myobj.save(new_file)
            await message.reply_audio(new_file)
            await a.edit(random.choice(aphorisms))
