@@ -52,3 +52,4 @@ youtube-dl==2021.1.24.1
 youtube-search==1.1.1
 zope.interface==5.2.0
 emoji==1.2.0
+gpytranslate==1.0.3
