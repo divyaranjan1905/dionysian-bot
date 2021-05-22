@@ -1,6 +1,6 @@
 
 """
-This is the bot for the Philosophy And Literature Group on Telegram.
+This is the bot for the Philosophy And Literature Group (@CorgitoReaders) on Telegram.
 This document was first written on 11th Jan 2021 by Divya Ranjan, one of the admins of the group.
 This document would be undergoind several changes for months, with the support of other members/admins from the group.
 This was solely made for the purpose of administering the group and help the admins keep up with the intentions of the group
@@ -30,7 +30,7 @@ from scihub import SciHub
 from aphorisms import aphorisms
 import wikipedia
 import urllib3
-
+from gpytranslate import Translator
 #Enable Logging
 
 logging.basicConfig(level=logging.INFO)
@@ -115,7 +115,7 @@ async def text(client, message):
            userid = str(message.chat.id)
            if not os.path.isdir(f"./DOWNLOADS/{userid}"):
               os.makedirs(f"./DOWNLOADS/{userid}")
-
+            
            language = await client.ask(
            message.chat.id,
            "Plz enter an language code\n suppourt languages[click here](https://www.google.com/url?sa=t&source=web&rct=j&url=https://cloud.google.com/text-to-speech/docs/voices&ved=2ahUKEwir4pPLlr7uAhWLwjgGHQAVAQAQFjACegQIDBAC&usg=AOvVaw3Q_9UBb0Xo-ljg87RGPX-8&cshid=1611821833928)",
@@ -136,8 +136,9 @@ async def text(client, message):
                    parse_mode="md"
            )
            new_file  = "./DOWNLOADS" + "/" + userid + "Audio"  + ".mp3"
-
-           myobj = gTTS(text=message.text, lang=language_to_audio, slow=False)
+            trans = message.text
+            l = len(trans)
+           myobj = gTTS(text=trans[6:l], lang=language_to_audio, slow=False)
            myobj.save(new_file)
            await message.reply_audio(new_file)
            await a.edit(random.choice(aphorisms))
@@ -183,6 +184,21 @@ async def comics(client, message):
            response = requests.get(img)
            f.write(response.content)
     await app.send_media_group(TestingBots, [InputMediaPhoto(filename)], quote = True)
+
+"""Translate messages using gpytranslate"""
+
+@app.on_message(filters.command("tr", prefixes="/"))
+async def translate(client, message):
+    t = Translator()
+    txt =  message.text
+    l = len(txt)
+    to_translate = txt[4:l]
+    detect = await t.detect(to_translate)
+    ask = await client.ask(message.chat.id, "What language do you want this to be tranaslated into? Here are the language [codes](https://cloud.google.com/translate/docs/languages)", reply_markup=ForceReply(True)) 
+    to_language = ask.text.lower()
+    translation = await t.translate(to_translate, targetlang=to_language)
+
+    await message.reply_text(translation.text, quote=True)
 
 
 
