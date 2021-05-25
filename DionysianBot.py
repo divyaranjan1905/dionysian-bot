@@ -31,6 +31,7 @@ from aphorisms import aphorisms
 import wikipedia
 import urllib3
 from gpytranslate import Translator
+
 #Enable Logging
 
 logging.basicConfig(level=logging.INFO)
