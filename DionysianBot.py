@@ -36,7 +36,7 @@ from gpytranslate import Translator
 
 logging.basicConfig(level=logging.INFO)
 
-bot_token = "1520740480:AAFmzNr57pNnWud7u5x7sFX0MDPi2kPA6Dw"
+bot_token = "1520740480:AAH9ocvGX1Tq3f_EC8DsNPFbXL5kLx2NOt0"
 
 app = Client("DionysianBot", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
 
