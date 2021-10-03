@@ -19,7 +19,7 @@ from bs4 import BeautifulSoup
 from pyrogram import Client, filters , emoji
 from pyromod import listen
 from config import api_id, api_hash , pw
-from pyrogram.types import User, Chat, ChatMember, Message, Photo, MessageEntity, Audio, Document, Animation, Video, Voice, Thumbnail, Contact, Game, Location, Poll, ForceReply
+from pyrogram.types import User, Chat, ChatMember, Message, Photo, MessageEntity, Audio, Document, Animation, Video, Voice, Thumbnail, Contact, Game, Location, Poll, ForceReply, InputMediaPhoto, InputMediaVideo
 from pyrogram.handlers import MessageHandler
 from gtts import gTTS
 from gtts.lang import tts_langs
@@ -85,15 +85,17 @@ Welcome = [
             "Hmmm....what do you think about nihilism? Do you think it's all meaningless? I mean, maybe, but I'm sure that wine isn't meaningless, how can it be?" + emoji.emojize(":wine_glass:"),
             "Wittgenstein said __Whereof one cannot speak, thereof one must be silent.__. But I'm sure you can speak, right? Say me something interesting about yourself." + emoji.emojize(":grapes:"),
             "Do you know that the fact that you joined right now to this group was something that was determined to happen? It couldn't have been otherwise, you were destined to be with us. Now as you are with us, I hope we can have some wine together while discussing philosophy." + emoji.emojize(":clinking_glasses:"),
-            "Do you like talking about philosophy and essentially exploring the underlying substructure behind everything? You're at the right place, a lot of boring folks here have nothing better to do other than that, hopefully you can be one of them." +emoji.emojize(":clinking_glasses:") ,
+            "Do you like talking about philosophy and essentially exploring the underlying substructure of everything? You're at the right place, a lot of boring folks here have nothing better to do other than that, hopefully you can be one of them." +emoji.emojize(":clinking_glasses:") ,
             "What was the last dream you had? Have you tried analyzing it? If not, we've got a few psychoanalysis enthusiasts here, they might help you out and you might get to have some insight about them and yourself",
             "Remember the mad Apollo? One of the famous maxims inscribed at his Temple in Delphi is __Know Thyself__. Do you think this has anything reasonable to it? How do you think one can start with 'knowing themselves'? And can we only do that with the Apollonian tools of reason? Doesn't being drunk on wine also help you 'know thyself', about something that reason could never reach? Anyways..who cares" + emoji.emojize(":clinking_glasses:") ,
             "Welcome to this sacred (aka boring) place! Here's a question for you from Nietzsche, my only true disciple : '__Are you genuine? or just a play-actor? A representative? or the actual thing represented? --Ultimately you are even just an imitation play-actor...__' Let's think through this together" + emoji.emojize(":clinking_glasses:"),
             "What do you think about the concept of dualism? Do yo believe that the mind and the consciousness exist in a world entirely different that from the material world? Does the material world exist without consciousness? Or would consciousness exist without the brain? Why not talk start discussing about it here?", 
-            "Aha! So as you're finally here, have you tried wondering about __happiness__ and __pleasure__? Well there's certainly no __pleasure__ in being here, I can assure you that, but if you think about it sometimes we strive for __happiness__ with the unconscious assumption that it's actually __pleasure__. Do you think __pleasure__ is more fundamental than __happiness__, or the other way around? Can we ever get rid of the drive to __pleasure__ and at the same time can we ever achieve __happiness__ or __be happy__? Regardless, a glass of wine certainly promises pleasue for __me__, you wanna try one?" + emoji.emojize(":clinking_glasses:"),
+            "Aha! So as you're finally here, have you tried wondering about __happiness__ and __pleasure__? Well there's certainly no __pleasure__ in being here, I can assure you that, but if you think about it sometimes we strive for __happiness__ with the unconscious assumption that it's actually __pleasure__. Do you think __pleasure__ is more fundamental than __happiness__, or the other way around? Can we ever get rid of the drive to __pleasure__ and at the same time can we ever achieve __happiness__ or __be happy__? Regardless, a glass of wine certainly promises pleasure for __me__, you wanna try one?" + emoji.emojize(":clinking_glasses:"),
             "Hmm...so you decided to join a __philosophy__ group somehow, do you think philosophy is the most fundamental field of knowledge from which every other field builds upon? Or do you think philosophy itself has to rely on something more fundamental? What can be more fundamental than examining the nature of human beings and their reality? Also, what do you think is the aim of philosophy, is it the Socratic concept of 'living an examined life' or the Skeptical aim of examining everything and 'knowing nothing'? Let's start discussing about it....over a glass of wine!" + emoji.emojize(":clinking_glasses:"),
 
-            "Hmmm....you know what, I haven't seen a decent aphorism from anyone in here, because they are just downright boring. So on the occasion of your arrival here, why don't you share with us your favorite philosophical quote/aphorism? Nothin is more satisfying than trying to decipher the underlyig meaning of an aphorism over a glass of wine. Cheers" + emoji.emojize("clinking_glasses:")
+            "Hmmm....you know what, I haven't seen a decent aphorism from anyone in here, because they are just downright boring. So on the occasion of your arrival here, why don't you share with us your favorite philosophical quote/aphorism? Nothing is more satisfying than trying to decipher the underlying meaning of an aphorism over a glass of wine. Cheers" + emoji.emojize("clinking_glasses:"),
+        
+            "Hello!! Welcome! You joined the group at the exactly right moment. I was just thinking about asking someone about melancholia. The modern analogue of that is called depression, but melancholia is hell of a lot more than that. Have you ever experienced melancholia? Have you read Freud's 1917 metapsychological paper called __Mourning and Melancholia__? It's a great read, but boring! I'd like to hear from you, so tell me what you know about melancholia. Meanwhile I'll let you know that my wine helps cure melancholia better than Freud's couch!" + emoji.emojize(":clinking_glasses:")
         ]
 
 """Welcome someone with a cool philosohical message"""
@@ -164,27 +166,32 @@ async def wiki (client,message):
       await message.reply_text( text = wikipedia.summary(word) ,quote=True)
 
 """Gets a random episode from Existential Comics"""
-@app.on_message(filters.command("ec", prefixes="/"))
+"@app.on_message(filters.command("ec", prefixes="/"))
 async def comics(client, message):
-    episode = str(random.randint(1,2703))
-    if not os.path.isdir(f"./Existential Comics/{episode}"):
-        os.makedirs(f"./Existential Comics/{episode}")
-
-    url = 'https://www.existentialcomics.com/comic' + episode
-    response = requests.get(url)
-
-    soup = BeautifulSoup(response.content, 'html.parser')
-    img_tags = soup.find_all('img')
-    img_urls = [img['src'] for img in img_tags]
-
-    for img in img_urls:
-        if 'http' not in img:
-            img = '{}{}'.format(url, img)
-        filename = os.path.join(f"./Existential Comics/{episode}", img.split("/")[-1])
-        with open(filename, "wb") as f:
-           response = requests.get(img)
-           f.write(response.content)
-    await app.send_media_group(TestingBots, [InputMediaPhoto(filename)], quote = True)
+"    episode = str(random.randint(1,2703))
+"    if not os.path.isdir(f"./Existential Comics/{episode}"):
+"        os.makedirs(f"./Existential Comics/{episode}")
+"
+"    url = 'https://www.existentialcomics.com/comic' + episode
+"    response = requests.get(url)
+"
+"    soup = BeautifulSoup(response.content, 'html.parser')
+"    img_tags = soup.find_all('img')
+"    img_urls = [img['src'] for img in img_tags]
+"
+"    for img in img_urls:
+"        if 'http' not in img:
+"            img = '{}{}'.format(url, img)
+"        filename = os.path.join(f"./Existential Comics/{episode}", img.split("/")[-1])
+"        with open(filename, "wb") as f:
+"           response = requests.get(img)
+"           f.write(response.content)
+"    await app.send_media_group(
+"                            TestingBots,
+"                            [
+"                                InputMediaPhoto(filename)
+"                            ]
+"    )
 
 """Translate messages using gpytranslate"""
 
@@ -200,7 +207,5 @@ async def translate(client, message):
     translation = await t.translate(to_translate, targetlang=to_language)
 
     await message.reply_text(translation.text, quote=True)
-
-
 
 app.run()
