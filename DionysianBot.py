@@ -165,34 +165,6 @@ async def wiki (client,message):
       word = message.command[-1]
       await message.reply_text( text = wikipedia.summary(word) ,quote=True)
 
-"""Gets a random episode from Existential Comics"""
-"@app.on_message(filters.command("ec", prefixes="/"))
-async def comics(client, message):
-"    episode = str(random.randint(1,2703))
-"    if not os.path.isdir(f"./Existential Comics/{episode}"):
-"        os.makedirs(f"./Existential Comics/{episode}")
-"
-"    url = 'https://www.existentialcomics.com/comic' + episode
-"    response = requests.get(url)
-"
-"    soup = BeautifulSoup(response.content, 'html.parser')
-"    img_tags = soup.find_all('img')
-"    img_urls = [img['src'] for img in img_tags]
-"
-"    for img in img_urls:
-"        if 'http' not in img:
-"            img = '{}{}'.format(url, img)
-"        filename = os.path.join(f"./Existential Comics/{episode}", img.split("/")[-1])
-"        with open(filename, "wb") as f:
-"           response = requests.get(img)
-"           f.write(response.content)
-"    await app.send_media_group(
-"                            TestingBots,
-"                            [
-"                                InputMediaPhoto(filename)
-"                            ]
-"    )
-
 """Translate messages using gpytranslate"""
 
 @app.on_message(filters.command("tr", prefixes="/"))
