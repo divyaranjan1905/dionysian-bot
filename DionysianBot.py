@@ -4,7 +4,7 @@ This document was first written on 11th Jan 2021 by Divya Ranjan, one of the adm
 This document would be undergoing several changes for months, with the support of other members/admins from the group.
 This was solely made for the purpose of administering the group and help the admins keep up with the intentions of the group
 """
-#Everything that we need for the metaphysical structure of this bot
+# Everything that we need for the metaphysical structure of this bot
 import os
 import asyncio
 import math
@@ -23,6 +23,7 @@ from utils.captcha.generate_id  import generate
 from utils.captcha.markup import make_captcha_markup
 from pyromod import listen
 from config import api_id, api_hash , pw, GROUP_CHAT_ID
+from welcome import greetings
 from pyrogram.types import User, Chat, ChatMember, Message, Photo, MessageEntity, Audio, Document, Animation, Video, Voice, Thumbnail, Contact, Game, Location, Poll, ForceReply, InputMediaPhoto, InputMediaVideo, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, ChatPermissions
 from pyrogram.handlers import MessageHandler
 from gtts import gTTS
@@ -55,7 +56,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 """Testing aphorisms on BOT Testing Group"""
 async def job():
-    await app.send_message(chat_id='TestingPhilosophicalBots' , text = random.choice(aphorisms))
+    await app.send_message(chat_id='PhilosophicalBots' , text = random.choice(aphorisms))
 
 scheduler = AsyncIOScheduler()
 scheduler.add_job(job, "interval", seconds=43200)
@@ -75,7 +76,7 @@ scheduler.start()
 """Send a message when the command /start is used """
 @app.on_message(filters.command("start@DionysianBot", prefixes="/") | filters.command("start", prefixes="/"))
 async def start(client, message):
-    await message.reply_text(text = "The Dionysian \"Ubermensch among @CorgitoReaders. I'd do anything for you if you bring me wine, so, when are we having a drink? " + emoji.emojize(":clinking_glasses:") , quote = True )
+    await message.reply_text(text = "The Dionysian Ubermensch among @CorgitoReaders. I'd do anything for you if you bring me wine, so, when are we having a drink? " + emoji.emojize(":clinking_glasses:") , quote = True )
 
 
 """Generate a random aphorism when /quote is used"""
@@ -251,30 +252,10 @@ async def buttons_handlers(bot: Client, cb: CallbackQuery):
                 await cb.message.delete(True)
             await cb.answer()
 
-#Welcoming members in a philosophical manner
-Welcome = [
-        "Umhmmm...so somehow you made it until here, do you know how boring this chat is? I hope you have something interesting. Meanwhile, wanna have a glass of wine?" + emoji.emojize(":clinking_glasses:"),
-        "Hello! fellow human, I'm a bot but I can drink wine does that make me less of a bot and more of a human? Also how have you been lately?" + emoji.emojize(":clinking_glasses:"),
-        "Hmmm....what do you think about nihilism? Do you think it's all meaningless? I mean, maybe, but I'm sure that wine isn't meaningless, how can it be?" + emoji.emojize(":wine_glass:"),
-        "Wittgenstein said __Whereof one cannot speak, thereof one must be silent.__. But I'm sure you can speak, right? Say me something interesting about yourself." + emoji.emojize(":grapes:"),
-        "Do you know that the fact that you joined right now to this group was something that was determined to happen? It couldn't have been otherwise, you were destined to be with us. Now as you are with us, I hope we can have some wine together while discussing philosophy." + emoji.emojize(":clinking_glasses:"),
-        "Do you like talking about philosophy and essentially exploring the underlying substructure of everything? You're at the right place, a lot of boring folks here have nothing better to do other than that, hopefully you can be one of them." +emoji.emojize(":clinking_glasses:") ,
-        "What was the last dream you had? Have you tried analyzing it? If not, we've got a few psychoanalysis enthusiasts here, they might help you out and you might get to have some insight about them and yourself",
-        "Remember the mad Apollo? One of the famous maxims inscribed at his Temple in Delphi is __Know Thyself__. Do you think this has anything reasonable to it? How do you think one can start with 'knowing themselves'? And can we only do that with the Apollonian tools of reason? Doesn't being drunk on wine also help you 'know thyself', about something that reason could never reach? Anyways..who cares" + emoji.emojize(":clinking_glasses:") ,
-        "Welcome to this sacred (aka boring) place! Here's a question for you from Nietzsche, my only true disciple : '__Are you genuine? or just a play-actor? A representative? or the actual thing represented? --Ultimately you are even just an imitation play-actor...__' Let's think through this together" + emoji.emojize(":clinking_glasses:"),
-        "What do you think about the concept of dualism? Do yo believe that the mind and the consciousness exist in a world entirely different that from the material world? Does the material world exist without consciousness? Or would consciousness exist without the brain? Why not talk start discussing about it here?", 
-        "Aha! So as you're finally here, have you tried wondering about __happiness__ and __pleasure__? Well there's certainly no __pleasure__ in being here, I can assure you that, but if you think about it sometimes we strive for __happiness__ with the unconscious assumption that it's actually __pleasure__. Do you think __pleasure__ is more fundamental than __happiness__, or the other way around? Can we ever get rid of the drive to __pleasure__ and at the same time can we ever achieve __happiness__ or __be happy__? Regardless, a glass of wine certainly promises pleasure for __me__, you wanna try one?" + emoji.emojize(":clinking_glasses:"),
-        "Hmm...so you decided to join a __philosophy__ group somehow, do you think philosophy is the most fundamental field of knowledge from which every other field builds upon? Or do you think philosophy itself has to rely on something more fundamental? What can be more fundamental than examining the nature of human beings and their reality? Also, what do you think is the aim of philosophy, is it the Socratic concept of 'living an examined life' or the Skeptical aim of examining everything and 'knowing nothing'? Let's start discussing about it....over a glass of wine!" + emoji.emojize(":clinking_glasses:"),
-
-        "Hmmm....you know what, I haven't seen a decent aphorism from anyone in here, because they are just downright boring. So on the occasion of your arrival here, why don't you share with us your favorite philosophical quote/aphorism? Nothing is more satisfying than trying to decipher the underlying meaning of an aphorism over a glass of wine. Cheers" + emoji.emojize(":clinking_glasses:"),
-
-        "Hello!! Welcome! You joined the group at the exactly right moment. I was just thinking about asking someone about melancholia. The modern analogue of that is called depression, but melancholia is hell of a lot more than that. Have you ever experienced melancholia? Have you read Freud's 1917 metapsychological paper called __Mourning and Melancholia__? It's a great read, but boring! I'd like to hear from you, so tell me what you know about melancholia. Meanwhile I'll let you know that my wine helps cure melancholia better than Freud's couch!" + emoji.emojize(":clinking_glasses:")
-        ]
-
 """Welcome someone with a cool philosohical message"""
 @app.on_message(filters.chat([TestingBots, PhilosophyChat]) & filters.new_chat_members)
 async def welcome(client, message):
-    await message.reply_text(random.choice(Welcome), quote=True)
+    await message.reply_text(random.choice(greetings), quote=True)
 
 norms = "<p>You&apos;ll be able to figure out everything else as you go, but just remember some of these :&nbsp;</p><p>1. Don&apos;t take any opinion as the greatest truth, question everything.&nbsp;</p><p>2. Don&apos;t be afraid or indulge into emotions while having conversations.&nbsp;</p><p>3. Be civil during conversations and respect the human you&apos;re talking to.&nbsp;</p><p>4. Always share content with context. Random posts about random things are discouraged, and would be deleted.&nbsp;</p><p>5. We appreciate that you tell us about your day, in fact we encourage you to do so, but try to maintain the topic &nbsp;at more higher intellectual level.</p><p>6. Do not feed the trolls.&nbsp;</p><p>7. If you feel like insulted in some way, you can tell any admin present at the moment or use the #harsh tag.&nbsp;</p><p>8. Try to limit the use of bad words, you can use them, but try not to abuse.&nbsp;</p><p>9. Treat the chat as a place of impersonal discourse. Long rants on things that aren&apos;t necessarily philosophical are discouraged. Try to keep your posts, claims and critiques as impersonal as you can.</p><p>10. Divergence in discussions leading to unnecessary &nbsp;back and forth around a controversial topic are to be moderated and kept to the minimum. For the best, try not to lead into such directions, and when you do try to get back to something beyond it.</p><p>&nbsp;<br>We appreciate your stay in this sacred place. Thank you.</p>"
 
@@ -318,7 +299,7 @@ async def text(client, message):
             await message.reply_audio(new_file)
             await a.edit(random.choice(aphorisms))
 
-"""Gets a paper from SciHub using the given DOI"""
+#"""Gets a paper from SciHub using the given DOI"""
 # @app.on_message(filters.command("sci",prefixes="/"))
 # async def sci(client, message):
 #       filters.command("sci", "/")
