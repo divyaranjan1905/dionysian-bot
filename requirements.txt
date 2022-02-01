@@ -18,7 +18,6 @@ filelock
 gTTS
 heroku
 idna
-multidic
 OpenCC
 Pillow
 pipenv
