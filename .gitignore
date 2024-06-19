@@ -1,7 +1,9 @@
 /__pycache__
 *.py~
 *.un~
-*.session 
+*.session
 *.session-journal
-/DOWNLOADS 
+/DOWNLOADS
 *.swp
+config.py
+*.eu
