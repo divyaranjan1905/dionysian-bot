@@ -23,7 +23,7 @@ from utils.captcha.main_captcha import make_captcha
 from utils.captcha.generate_id  import generate
 from utils.captcha.markup import make_captcha_markup
 from pyromod import listen
-from config import api_id, api_hash , pw, GROUP_CHAT_ID
+from config import api_id, api_hash , pw, GROUP_CHAT_ID, bot_token
 from welcome import greetings
 from pyrogram.types import User, Chat, ChatMember, Message, Photo, MessageEntity, Audio, Document, Animation, Video, Voice, Thumbnail, Contact, Game, Location, Poll, ForceReply, InputMediaPhoto, InputMediaVideo, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, ChatPermissions
 from pyrogram.handlers import MessageHandler
@@ -42,7 +42,6 @@ from gpytranslate import Translator
 
 logging.basicConfig(level=logging.INFO)
 
-bot_token = "1520740480:AAH9ocvGX1Tq3f_EC8DsNPFbXL5kLx2NOt0"
 
 app = Client("DionysianBot", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
 
@@ -161,7 +160,7 @@ async def buttons_handlers(bot: Client, cb: CallbackQuery):
                 '🐧', '🍎', '😀', '🐍', '❄️', '🐚', '🐢', '🌝', '🍺', '🍔', '🍒', '🍫', '🍡', '🌑', '🍟',
                 '☕️', '🍑', '🍷', '🍧', '🍕', '🍵', '🐋', '🐱', '💄', '👠', '💰', '💸', '🎹', '📦', '📍',
                 '🐊', '🦕', '🐬', '💋', '🦎', '🦈', '🦷', '🦖', '🐠', '🐟','💀', '🎃', '👮', '⛑', '🪢', '🧶',
-                '🧵', '🪡', '🧥', '🥼', '🥻', '🎩', '👑', '🎒', '🙊', '🐗', '🦋', '🦐', '🐀', '🐿', '🦔', '🦦', 
+                '🧵', '🪡', '🧥', '🥼', '🥻', '🎩', '👑', '🎒', '🙊', '🐗', '🦋', '🦐', '🐀', '🐿', '🦔', '🦦',
                 '🦫', '🦡', '🦨', '🐇']
         print("Cleaning Answer Emojis from Emojis List ...")
         for a in range(len(__emojis)):
@@ -317,7 +316,7 @@ async def translate(client, message):
     l = len(txt)
     to_translate = txt[4:l]
     detect = await t.detect(to_translate)
-    ask = await client.ask(message.chat.id, "What language do you want this to be translated into? Here are the language [codes](https://cloud.google.com/translate/docs/languages)", reply_markup=ForceReply(True)) 
+    ask = await client.ask(message.chat.id, "What language do you want this to be translated into? Here are the language [codes](https://cloud.google.com/translate/docs/languages)", reply_markup=ForceReply(True))
     to_language = ask.text.lower()
     translation = await t.translate(to_translate, targetlang=to_language)
 
