@@ -6,4 +6,5 @@
 /DOWNLOADS
 *.swp
 *.eu
-./config.py
+.env
+/config.py
